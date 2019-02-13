@@ -8,13 +8,13 @@ class ClientController {
 	
 	function __construct(){
 		if (isset($_POST['postClientName'])){
-			$this->checkIfUserHaveRegistrations();
+			$this->checkIfUserHaveRegistration();
 		}else if(isset($_POST['cancel'])){
 $this->cancelRegistration();
 		}
 	}
 	
-	public function checkIfUserHaveRegistrations(){
+	public function checkIfUserHaveRegistration(){
 		$database = new MySqlObject();
 		$reservation = new Reservation($_POST['name'],$_POST['surname']);
 		$nameAndSurname = "". $reservation->uName . " ".$reservation->uSurname;

@@ -36,8 +36,18 @@ class MySqlObject
 	  if ($conn->connect_error) {
 		  die("connection failed: " . $conn->connect_error);
     }
-    $query = "DELETE FROM reservations WHERE clientNameAndSurname = "."'J J' ";
+    $query = "DELETE FROM reservations WHERE clientNameAndSurname = "."'$nameAndSurname' ";
     return $conn->query($query);
+  }
+
+  public function getLoyalCustomers(){
+    $conn = new mysqli("localhost", "root", "","nfqprojectdatabase");
+	  if ($conn->connect_error) {
+		  die("connection failed: " . $conn->connect_error);
+    }
+    $query = "SELECT clientNameAndSurname,visitsCount FROM visits ORDER by visitsCount ASC";
+    $result = $conn->query($query);
+    return $result;
   }
 }
 
