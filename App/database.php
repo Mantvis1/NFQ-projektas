@@ -30,6 +30,15 @@ class MySqlObject
     $result = $conn->query($query);
     return $result;
   }
+
+  public function cancelRegistration($nameAndSurname){
+    $conn = new mysqli("localhost", "root", "","nfqprojectdatabase");
+	  if ($conn->connect_error) {
+		  die("connection failed: " . $conn->connect_error);
+    }
+    $query = "DELETE FROM reservations WHERE clientNameAndSurname = "."'J J' ";
+    return $conn->query($query);
+  }
 }
 
 ?>
