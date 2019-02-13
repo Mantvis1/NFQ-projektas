@@ -6,6 +6,7 @@ $controller = new ClientController();
 
 class ClientController {
 	
+ 
 
 	function __construct(){
 		if (isset($_POST['postClientName'])){
@@ -19,7 +20,14 @@ class ClientController {
 		$nameAndSurname = "". $_POST['name'] . " ".$_POST['surname'];
 		$query = "SELECT Count(id) from reservations where clientNameAndSurname = "."'$nameAndSurname'";
 		$result = $database->select($query);
-		var_dump($result);
+		 while ($row = $result->fetch_assoc()) {
+			 var_dump($row);
+			 if($row['Count(id)'] == 0){
+				header("Location: ../Views/Client/reservation.php");
+			 }else {
+				header("Location: ../Views/Client/cancel.php");
+			 }
+		}
 	}
 }
 
