@@ -2,8 +2,8 @@
 
 class Reservation
 {
-		private $uName = "";
-		private $uSurname = "";
+		public $uName = "";
+		public $uSurname = "";
     
     public function __construct($name, $surname)
     {
