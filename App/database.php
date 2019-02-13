@@ -49,6 +49,16 @@ class MySqlObject
     $result = $conn->query($query);
     return $result;
   }
+
+  public function findCostumersVisitsCountByName($nameAndSurname){
+    $conn = new mysqli("localhost", "root", "","nfqprojectdatabase");
+	  if ($conn->connect_error) {
+		  die("connection failed: " . $conn->connect_error);
+    }
+    $query = "SELECT visitsCount FROM visits WHERE clientNameAndSurname= "."'$nameAndSurname' ";
+    $result = $conn->query($query);
+    return $result;
+  }
 }
 
 ?>

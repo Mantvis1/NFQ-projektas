@@ -10,7 +10,7 @@ class ClientController {
 		if (isset($_POST['postClientName'])){
 			$this->checkIfUserHaveRegistration();
 		}else if(isset($_POST['cancel'])){
-$this->cancelRegistration();
+			$this->cancelRegistration();
 		}
 	}
 	
