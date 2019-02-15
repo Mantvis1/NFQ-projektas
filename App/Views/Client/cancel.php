@@ -11,6 +11,7 @@ session_start();
 ?>
   <form action="../../Controllers/clientController.php" method="POST">
     <div>Jūs jau turite rezervaciją</div>
+    <label>Kirpimo data:<?php echo $_SESSION['clientReservationInformation']['startDay'];?></label><br>
     <label>Kirpimo laikas:<?php echo $_SESSION['clientReservationInformation']['startTime'];?></label><br>
     <label>Kirpeja:<?php echo $_SESSION['clientReservationInformation']['name'];?></label><br>
     <button type="submit">Atsaukti</button>

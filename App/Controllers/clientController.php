@@ -48,6 +48,7 @@ class ClientController {
 	public function cancelRegistration(){
 		$database = new MySqlObject();
 		$queryResult = $database->cancelRegistration($_SESSION['name']);
+		$database->UpdateUserVisitsTableAfterCancel($_SESSION['name']);
 		if($queryResult == true){
 			header("Location: ../Views/Client/main.php");
 		}
@@ -103,17 +104,29 @@ function SecondPartOfReservation(){
 }
 
 function ThirdPartOfReservation(){
-	var_dump($_POST);
+//	var_dump($_POST);
 	$database = new MySqlObject();
 	$test = $database->GetHaircutterIdByName($_POST['haircutterName']);
 	while ($row = $test->fetch_assoc()) {
 		$haircutterId = $row;
 	 }
-	$message = $database->insertNewReservation($_POST['clientName'], $_POST['day'], $_POST['timeSelect'], $haircutterId["id"]);
+	$database->insertNewReservation($_POST['clientName'], $_POST['day'], $_POST['timeSelect'], $haircutterId["id"]);
+	
+	$test = $database->CheckIfUserExsitsInVisitsTable($_POST['clientName']);
+	while ($row = $test->fetch_assoc()) {
+		$countVisitsOfSpeciefiedUser = $row['COUNT(id)'];
+	 }
+	if($countVisitsOfSpeciefiedUser == 0){
+		$database->CreateNewUserVisitsCountTable($_POST['clientName']);
+	}else {
+		$database->UpdateUserVisitsTable($_POST['clientName']);
+	}
+	
+	
 	$queryResult = $database->checkUserRegistrationInfo($_POST['clientName']);
-				while ($row = $queryResult->fetch_assoc()) {
-					$_SESSION['clientReservationInformation'] = $row;
-				 }
+	while ($row = $queryResult->fetch_assoc()) {
+		$_SESSION['clientReservationInformation'] = $row;
+		}
 	header("Location: ../Views/Client/cancel.php?message=".$message);
 	}
 }

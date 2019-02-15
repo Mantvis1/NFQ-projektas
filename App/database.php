@@ -22,7 +22,7 @@ class MySqlObject
 	  if ($conn->connect_error) {
 		  die("connection failed: " . $conn->connect_error);
     }
-    $query = "SELECT startTime, haircutter.name
+    $query = "SELECT startTime,startDay, haircutter.name
     FROM reservations
     INNER JOIN haircutter
     ON reservations.haircutterId = haircutter.id
@@ -103,6 +103,44 @@ class MySqlObject
       return "Registracija nesekminga";
     }
   }
+
+    function CreateNewUserVisitsCountTable($nameAndSurname){
+      $conn = new mysqli("localhost", "root", "","nfqprojectdatabase");
+	  if ($conn->connect_error) {
+		  die("connection failed: " . $conn->connect_error);
+    }
+      $query= "INSERT INTO visits VALUES (NULL,'".$nameAndSurname."',1)";
+      $result = $conn->query($query);
+    }
+
+    function CheckIfUserExsitsInVisitsTable($nameAndSurname){
+      $conn = new mysqli("localhost", "root", "","nfqprojectdatabase");
+      if ($conn->connect_error) {
+        die("connection failed: " . $conn->connect_error);
+      }
+        $query= "SELECT COUNT(id) FROM visits WHERE clientNameAndSurname = '".$nameAndSurname."'";
+        $result = $conn->query($query);
+        return $result;
+    }
+
+    function UpdateUserVisitsTable($nameAndSurname){
+      $conn = new mysqli("localhost", "root", "","nfqprojectdatabase");
+      if ($conn->connect_error) {
+        die("connection failed: " . $conn->connect_error);
+      }
+      $query = "UPDATE visits SET visitsCount=visitsCount+1 WHERE clientNameAndSurname = '".$nameAndSurname."';";
+      $result = $conn->query($query);
+    }
+
+    function UpdateUserVisitsTableAfterCancel($nameAndSurname){
+      $conn = new mysqli("localhost", "root", "","nfqprojectdatabase");
+      if ($conn->connect_error) {
+        die("connection failed: " . $conn->connect_error);
+      }
+      $query = "UPDATE visits SET visitsCount=visitsCount-1 WHERE clientNameAndSurname = '".$nameAndSurname."';";
+      $result = $conn->query($query);
+    }
+  
 }
 
 ?>
