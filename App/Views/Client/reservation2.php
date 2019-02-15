@@ -9,14 +9,20 @@ session_start();
 
 <body>
   Cia bus rezervacija
+  <br>
   <form action="../../Controllers/clientController.php" method="POST">
     <input name="clientName" value="<?php echo $_SESSION['name']?>" readonly>
     <input name="haircutterName" value="<?php echo $_GET['haircutter']?>" readonly>
     <select name="daySelect">
-      <option value="day1">day1</option>
-      <option value="day2">day2</option>
-      <option value="day3">day3</option>
-      <option value="day4">day4</option>
+      <?php for($index = 0; $index < count($_SESSION['dates']); $index++) {
+      if($index == 0){?>
+      <option value="<?php echo $_SESSION['dates'][$index];?>">Siandien</option>
+      <?php} else if($index == 1){?>
+      <option value="<?php echo $_SESSION['dates'][$index];?>">Rytoj</option>
+      <?php }else { ?>
+      <option value="<?php echo $_SESSION['dates'][$index];?>"><?php echo $_SESSION['dates'][$index];?></option>
+      <?php } 
+      } ?>
     </select>
     <button type="submit">Pasirinkti laika</button>
     <input name="secondPartOfReservation" type="hidden" value="1">

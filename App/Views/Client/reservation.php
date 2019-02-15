@@ -9,7 +9,6 @@ session_start();
 
 <body>
   Cia bus rezervacija
-  <?php echo count($_SESSION['haircutterList']);?>
   <form action="../../Controllers/clientController.php" method="POST">
     <input id="Id" value="<?php echo $_SESSION['name']?>" readonly>
     <select name="haircutterSelect">

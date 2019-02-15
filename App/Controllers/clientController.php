@@ -54,16 +54,21 @@ class ClientController {
 	}
 
 	function FirstPartOfReservation(){
-		header("Location: ../Views/Client/reservation2.php?haircutter=".$_POST['haircutterSelect']);
-	}
-	
-	function SecondPartOfReservation(){
-	header("Location: ../Views/Client/reservation3.php?haircutter=".$_POST['haircutterName']."&day=".$_POST['daySelect']);
-	}
+		$dates = array();
+		 for($index = 0; $index < 7;$index++){
+			 $dates[$index] = date("Y-m-d", strtotime("+".$index." day"));
+		 }
+		 $_SESSION['dates'] = $dates;
+		 header("Location: ../Views/Client/reservation2.php?haircutter=".$_POST['haircutterSelect']);
+}
 
-	function ThirdPartOfReservation(){
-		
-	}
+function SecondPartOfReservation(){
+header("Location: ../Views/Client/reservation3.php?haircutter=".$_POST['haircutterName']."&day=".$_POST['daySelect']);
+}
+
+function ThirdPartOfReservation(){
+
+}
 
 }
 
