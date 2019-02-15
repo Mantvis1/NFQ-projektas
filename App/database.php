@@ -75,7 +75,7 @@ class MySqlObject
 	  if ($conn->connect_error) {
 		  die("connection failed: " . $conn->connect_error);
     }
-    $query = "SELECT COUNT(id) FROM reservations Where startDay = '".$startDay."' and startTime = '".$startTime."' and haircutterId = ".$haircutterId;
+    $query ="SELECT COUNT(ID) FROM reservations WHERE startDay = '".$startDay."' and startTime = '".$startTime."' and haircutterId=".$haircutterId;
     $result = $conn->query($query);
     return $result;
   }
@@ -88,6 +88,20 @@ class MySqlObject
     $query = "SELECT id FROM haircutter where name='".$name."'";
     $result = $conn->query($query);
     return $result;
+  }
+
+  function insertNewReservation($nameAndSurname, $startDay, $startTime,$haircutterId){
+    $conn = new mysqli("localhost", "root", "","nfqprojectdatabase");
+	  if ($conn->connect_error) {
+		  die("connection failed: " . $conn->connect_error);
+    }
+    $query = "INSERT INTO reservations VALUES (NULL, '".$nameAndSurname."', '".$startDay."','".$startTime."',".$haircutterId.")";
+    $result = $conn->query($query);
+    if($result == true){
+      return "Registracija sekminga";
+    }else {
+      return "Registracija nesekminga";
+    }
   }
 }
 

@@ -49,7 +49,7 @@ class ClientController {
 		$database = new MySqlObject();
 		$queryResult = $database->cancelRegistration($_SESSION['name']);
 		if($queryResult == true){
-			header("Location: ../Views/Client/reservation.php");
+			header("Location: ../Views/Client/main.php");
 		}
 	}
 
@@ -68,29 +68,54 @@ function SecondPartOfReservation(){
 	 while ($row = $queryResult->fetch_assoc()) {
 		$haircutterId = $row;
 	 }
-	$startTime = date("10:00");
+	$startTime = "10:00";
 	$times = array();
+	$hours = 10;
+	$minutes = 0;
 	$index = 0;
-	while($startTime <= date("19:45")){
+	while($startTime != date("19:45")){
+	//	var_dump($startTime);
+	
 		$queryResult = $database->CheckIfTimeIsFree($_POST['daySelect'],$startTime,$haircutterId["id"]);
+		
 		$currentResult = '';
 		while ($row = $queryResult->fetch_assoc()) {
-			$currentResult = $row["COUNT(id)"];
+			$currentResult = $row["COUNT(ID)"];
 		 }
 		if($currentResult == 0){
 			$times[$index++]= $startTime;
 		}
-		$startTime = strtotime($startTime);
-		var_dump($startTime);
+		if($minutes + 15 == 60){
+			$hours += 1;
+			$minutes -= 45;
+			
+		}else{
+			$minutes += 15;
+		}
+		$startTime = "".(string)$hours.":".(string)$minutes."";
+		if(strlen($startTime) == 4){
+			$startTime = $startTime."0";
+		}
+		
 	}
-	
-//	header("Location: ../Views/Client/reservation3.php?haircutter=".$_POST['haircutterName']."&day=".$_POST['daySelect']);
+	$_SESSION['times'] = $times;
+	header("Location: ../Views/Client/reservation3.php?haircutter=".$_POST['haircutterName']."&day=".$_POST['daySelect']);
 }
 
 function ThirdPartOfReservation(){
 	var_dump($_POST);
-}
-
+	$database = new MySqlObject();
+	$test = $database->GetHaircutterIdByName($_POST['haircutterName']);
+	while ($row = $test->fetch_assoc()) {
+		$haircutterId = $row;
+	 }
+	$message = $database->insertNewReservation($_POST['clientName'], $_POST['day'], $_POST['timeSelect'], $haircutterId["id"]);
+	$queryResult = $database->checkUserRegistrationInfo($_POST['clientName']);
+				while ($row = $queryResult->fetch_assoc()) {
+					$_SESSION['clientReservationInformation'] = $row;
+				 }
+	header("Location: ../Views/Client/cancel.php?message=".$message);
+	}
 }
 
 ?>

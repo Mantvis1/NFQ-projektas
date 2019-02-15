@@ -14,10 +14,9 @@ session_start();
     <input name="haircutterName" value="<?php echo $_GET['haircutter']?>" readonly>
     <input name="day" value="<?php echo $_GET['day']?>" readonly>
     <select name="timeSelect">
-      <option value="time1">time1</option>
-      <option value="time4">time4</option>
-      <option value="time3">time3</option>
-      <option value="time2">time2</option>
+      <?php for($index = 0; $index < count($_SESSION['times']); $index++) {?>
+      <option value="<?php echo $_SESSION['times'][$index];?>"><?php echo $_SESSION['times'][$index];?></option>
+      <?php } ?>
     </select>
     <button type="submit">Pasirinkti laika</button>
     <input name="thirdPartOfReservation" type="hidden" value="1">
