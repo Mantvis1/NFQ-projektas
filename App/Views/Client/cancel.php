@@ -5,9 +5,9 @@ session_start();
 
 <body>
   <?php
-if(isset($_GET)){
-  echo $_GET["message"];
-}
+//if(isset($_GET)){
+//  echo $_GET["message"];
+//}
 ?>
   <form action="../../Controllers/clientController.php" method="POST">
     <div>Jūs jau turite rezervaciją</div>
