@@ -5,12 +5,15 @@ session_start();
 $controller = new ClientController();
 
 class ClientController {
-	
 	function __construct(){
 		if (isset($_POST['postClientName'])){
 			$this->checkIfUserHaveRegistration();
 		}else if(isset($_POST['cancel'])){
 			$this->cancelRegistration();
+		}else if(isset($_POST['firstPartOfReservation'])){
+      $this->FirstPartOfReservation();
+    }else if(isset($_POST['secondPartOfReservation'])){
+			$this->SecondPartOfReservation();
 		}
 	}
 	
@@ -40,6 +43,16 @@ class ClientController {
 			header("Location: ../Views/Client/reservation.php");
 		}
 	}
+
+	function FirstPartOfReservation(){
+		header("Location: ../Views/Client/reservation2.php?haircutter=".$_POST['haircutterSelect']);
+    //var_dump($_POST);
+	}
+	
+	function SecondPartOfReservation(){
+		var_dump($_POST);
+	}
+
 }
 
 ?>

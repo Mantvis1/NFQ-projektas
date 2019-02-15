@@ -59,6 +59,16 @@ class MySqlObject
     $result = $conn->query($query);
     return $result;
   }
+
+  public function GetAllHaircutters(){
+    $conn = new mysqli("localhost", "root", "","nfqprojectdatabase");
+	  if ($conn->connect_error) {
+		  die("connection failed: " . $conn->connect_error);
+    }
+    $query = "SELECT * FROM haircutter";
+    $result = $conn->query($query);
+    return $result;
+  }
 }
 
 ?>

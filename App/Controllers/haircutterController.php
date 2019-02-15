@@ -8,7 +8,7 @@ class haircutterController{
 
   function __construct(){
     if(isset($_POST['userSearch'])){
-        $this->foundCostumersInfo();
+      $this->foundCostumersInfo();
     }
   }
 
@@ -42,4 +42,7 @@ class haircutterController{
   $_SESSION['message'] = $message;
    header("Location: ../Views/Haircutter/customerSearch.php");
   }
+
+  
+
 }

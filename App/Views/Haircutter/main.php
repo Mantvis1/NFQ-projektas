@@ -1,11 +1,15 @@
 <html>
-<head>
-<style>
-</style>
-</head>
-<body>
-<?php
 
-?>
+<head>
+  <style>
+  </style>
+  <script>
+
+  </script>
+</head>
+
+<body>
+
 </body>
+
 </html>
