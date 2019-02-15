@@ -63,11 +63,32 @@ class ClientController {
 }
 
 function SecondPartOfReservation(){
-header("Location: ../Views/Client/reservation3.php?haircutter=".$_POST['haircutterName']."&day=".$_POST['daySelect']);
+	$database = new MySqlObject();
+	$queryResult = $database->GetHaircutterIdByName($_POST['haircutterName']);
+	 while ($row = $queryResult->fetch_assoc()) {
+		$haircutterId = $row;
+	 }
+	$startTime = date("10:00");
+	$times = array();
+	$index = 0;
+	while($startTime <= date("19:45")){
+		$queryResult = $database->CheckIfTimeIsFree($_POST['daySelect'],$startTime,$haircutterId["id"]);
+		$currentResult = '';
+		while ($row = $queryResult->fetch_assoc()) {
+			$currentResult = $row["COUNT(id)"];
+		 }
+		if($currentResult == 0){
+			$times[$index++]= $startTime;
+		}
+		$startTime = strtotime($startTime);
+		var_dump($startTime);
+	}
+	
+//	header("Location: ../Views/Client/reservation3.php?haircutter=".$_POST['haircutterName']."&day=".$_POST['daySelect']);
 }
 
 function ThirdPartOfReservation(){
-
+	var_dump($_POST);
 }
 
 }

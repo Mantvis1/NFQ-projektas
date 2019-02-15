@@ -22,6 +22,7 @@ session_start();
         submit">Pasirinkti kirpeja</button>
     <input name="firstPartOfReservation" type="hidden" value="1">
   </form>
+  <a href="../Client/main.php">Pradeti is pradziu</a>
 </body>
 
 </html>

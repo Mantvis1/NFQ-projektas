@@ -69,6 +69,26 @@ class MySqlObject
     $result = $conn->query($query);
     return $result;
   }
+
+  public function CheckIfTimeIsFree($startDay, $startTime,$haircutterId){
+    $conn = new mysqli("localhost", "root", "","nfqprojectdatabase");
+	  if ($conn->connect_error) {
+		  die("connection failed: " . $conn->connect_error);
+    }
+    $query = "SELECT COUNT(id) FROM reservations Where startDay = '".$startDay."' and startTime = '".$startTime."' and haircutterId = ".$haircutterId;
+    $result = $conn->query($query);
+    return $result;
+  }
+
+  public function GetHaircutterIdByName($name){
+    $conn = new mysqli("localhost", "root", "","nfqprojectdatabase");
+	  if ($conn->connect_error) {
+		  die("connection failed: " . $conn->connect_error);
+    }
+    $query = "SELECT id FROM haircutter where name='".$name."'";
+    $result = $conn->query($query);
+    return $result;
+  }
 }
 
 ?>

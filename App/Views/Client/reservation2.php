@@ -27,6 +27,7 @@ session_start();
     <button type="submit">Pasirinkti laika</button>
     <input name="secondPartOfReservation" type="hidden" value="1">
   </form>
+  <a href="../Client/main.php">Pradeti is pradziu</a>
 </body>
 
 </html>
