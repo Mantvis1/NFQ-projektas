@@ -75,7 +75,6 @@ function SecondPartOfReservation(){
 	$minutes = 0;
 	$index = 0;
 	while($startTime != date("19:45")){
-	//	var_dump($startTime);
 	
 		$queryResult = $database->CheckIfTimeIsFree($_POST['daySelect'],$startTime,$haircutterId["id"]);
 		
@@ -127,7 +126,7 @@ function ThirdPartOfReservation(){
 	while ($row = $queryResult->fetch_assoc()) {
 		$_SESSION['clientReservationInformation'] = $row;
 		}
-	header("Location: ../Views/Client/cancel.php?message=".$message);
+	header("Location: ../Views/Client/cancel.php");
 	}
 }
 

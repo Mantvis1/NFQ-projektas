@@ -19,6 +19,7 @@ session_start();
       $_SESSION['message'] = null;
     }
   ?>
+  <a class="button" href="../Haircutter/meniu.php">Gryzti i meniu</a><br>
 </body>
 
 </html>

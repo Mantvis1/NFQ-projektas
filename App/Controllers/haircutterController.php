@@ -11,6 +11,8 @@ class haircutterController{
       $this->foundCostumersInfo();
     }else if(isset($_POST['postHaircutterName'])){
       $this->loadHairCutterMeniu();
+    }else if(isset($_POST['findInfoAboutOneCustomer'])){
+      $this->getInfoAboutCustomers();
     }
   }
 
@@ -60,6 +62,25 @@ class haircutterController{
       $message = "Nera tokio kirpejo";
       header("Location: ../Views/Haircutter/main.php?message=".$message);
     }
+
+  }
+
+  function getInfoAboutCustomers(){
+    $database = new MySqlObject();
+    $queryResult = $database->checkIfUserWasRegistred($_POST['customerName']);
+    var_dump($_POST['customerName']);
+    while($row = $queryResult->fetch_assoc()){
+      $userRegistrationCount = $row["Count(id)"];
+      var_dump($row);
+    }
+    if($userRegistrationCount == 0){
+      $message = "registraciju nera";
+    }else {
+      $queryResult = $database->cancelRegistration($_POST['customerName']);
+      $message = "registracija sekmingai atsaukta";
+    }
+    
+    header("Location: ../Views/Haircutter/cancel.php?message=".$message);
 
   }
   
