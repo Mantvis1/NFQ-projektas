@@ -9,6 +9,8 @@ class haircutterController{
   function __construct(){
     if(isset($_POST['userSearch'])){
       $this->foundCostumersInfo();
+    }else if(isset($_POST['postHaircutterName'])){
+      $this->loadHairCutterMeniu();
     }
   }
 
@@ -43,6 +45,23 @@ class haircutterController{
    header("Location: ../Views/Haircutter/customerSearch.php");
   }
 
+  function loadHairCutterMeniu(){
+    $database = new MySqlObject();
+    $nameAndSurname = $_POST['name']." ".$_POST['surname'];
+    $queryResult = $database->IfHaircutterExists($nameAndSurname);
+    while($row = $queryResult->fetch_assoc()){
+      if($row["Count(id)"] == 1){
+        $_SESSION['haircutterName'] = $nameAndSurname;
+      }
+    }
+    if(isset($_SESSION['haircutterName'])){
+      header("Location: ../Views/Haircutter/meniu.php");
+    }else{
+      $message = "Nera tokio kirpejo";
+      header("Location: ../Views/Haircutter/main.php?message=".$message);
+    }
+
+  }
   
 
 }

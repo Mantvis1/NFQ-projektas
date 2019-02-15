@@ -140,7 +140,17 @@ class MySqlObject
       $query = "UPDATE visits SET visitsCount=visitsCount-1 WHERE clientNameAndSurname = '".$nameAndSurname."';";
       $result = $conn->query($query);
     }
-  
+
+    function IfHaircutterExists($nameAndSurname)
+    {
+      $conn = new mysqli("localhost", "root", "","nfqprojectdatabase");
+      if ($conn->connect_error) {
+        die("connection failed: " . $conn->connect_error);
+      }
+      $query= "SELECT Count(id) FROM haircutter where name = '".$nameAndSurname."'";
+      $result = $conn->query($query);
+      return $result;
+    }  
 }
 
 ?>
