@@ -14,6 +14,8 @@ class ClientController {
       $this->FirstPartOfReservation();
     }else if(isset($_POST['secondPartOfReservation'])){
 			$this->SecondPartOfReservation();
+		}else if(isset($_POST['thirdPartOfReservation'])){
+			$this->ThirdPartOfReservation();
 		}
 	}
 	
@@ -25,6 +27,13 @@ class ClientController {
 		$queryResult = $database->checkIfUserWasRegistred($nameAndSurname);
 		 while ($row = $queryResult->fetch_assoc()) {
 			 if($row["Count(id)"] == 0){
+				 $hairCutterList = $database->GetAllHaircutters();
+				$haircutters = array();
+				$index = 0;
+				 while ($row = $hairCutterList->fetch_assoc()) {
+						$haircutters[$index++] = $row;
+				 }
+				 $_SESSION['haircutterList'] = $haircutters;
 				header("Location: ../Views/Client/reservation.php");
 			 }else {
 				 $queryResult = $database->checkUserRegistrationInfo($nameAndSurname);
@@ -46,11 +55,14 @@ class ClientController {
 
 	function FirstPartOfReservation(){
 		header("Location: ../Views/Client/reservation2.php?haircutter=".$_POST['haircutterSelect']);
-    //var_dump($_POST);
 	}
 	
 	function SecondPartOfReservation(){
-		var_dump($_POST);
+	header("Location: ../Views/Client/reservation3.php?haircutter=".$_POST['haircutterName']."&day=".$_POST['daySelect']);
+	}
+
+	function ThirdPartOfReservation(){
+		
 	}
 
 }
