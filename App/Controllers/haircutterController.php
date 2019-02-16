@@ -21,8 +21,12 @@ class haircutterController{
       $this->secondPartOfReservation();
     }else if(isset($_POST['thirdPartOfReservation'])){
       $this->thirdPartOfReservation();
-    }else if(isset($_POST['filter'])){
-      $this->Filter();
+    }else if(isset($_POST['filterByDate'])){
+      $this->FilterByDate();
+    }else if(isset($_POST['filterByName'])){
+      $this->FilterByName();
+    }else if(isset($_POST['removeFilter'])){
+      $this->removeFilter();
     }
   }
 
@@ -59,6 +63,11 @@ class haircutterController{
 
   function loadHairCutterMeniu(){
     $database = new MySqlObject();
+    $dates = array();
+    for($index = 0; $index < 7;$index++){
+      $dates[$index] = date("Y-m-d", strtotime("+".$index." day"));
+    }
+    $_SESSION['dates'] = $dates;
     $nameAndSurname = $_POST['name']." ".$_POST['surname'];
     $queryResult = $database->IfHaircutterExists($nameAndSurname);
     while($row = $queryResult->fetch_assoc()){
@@ -78,10 +87,8 @@ class haircutterController{
   function getInfoAboutCustomers(){
     $database = new MySqlObject();
     $queryResult = $database->checkIfUserWasRegistred($_POST['customerName']);
-    var_dump($_POST['customerName']);
     while($row = $queryResult->fetch_assoc()){
       $userRegistrationCount = $row["Count(id)"];
-      var_dump($row);
     }
     if($userRegistrationCount == 0){
       $message = "registraciju nera";
@@ -96,8 +103,6 @@ class haircutterController{
 
   function firstPartOfReservation()
   {
-    var_dump($_POST);
-    var_dump($_SESSION);
     $dates = array();
 		 for($index = 0; $index < 7;$index++){
 			 $dates[$index] = date("Y-m-d", strtotime("+".$index." day"));
@@ -143,9 +148,7 @@ class haircutterController{
       
     }
     $_SESSION['times'] = $times;
-    $_SESSION['dates'] = NULL;
     $_SESSION['selectedDay'] = $_POST['daySelect'];
-    var_dump($_SESSION);
     header("Location: ../Views/Haircutter/reservation3.php");
   
   }
@@ -177,13 +180,60 @@ class haircutterController{
   header("Location: ../Views/Haircutter/meniu.php");
   }
 
-  function Filter(){
+  function FilterByDate(){
     $database = new MySqlObject();
     $queryResult = $database->GetHaircutterIdByName($_SESSION['haircutterName']);
     while ($row = $queryResult->fetch_assoc()) {
       $indexOfHaircutter = $row["id"];
     }
 
+  $queryResult = $database->GetAllReservations($indexOfHaircutter);
+    $reservations = array();
+    $index = 0;
+    while ($row = $queryResult->fetch_assoc()) {
+       $reservations[$index++] = $row;
+      }
+      $index = 0;
+      foreach($reservations as $reservation){
+        if($reservation["startDay"] != $_POST['daySelect']){
+          unset($reservations[$index]);
+        }
+        $index++;
+      }
+      $_SESSION['reservations'] = $reservations;
+      header("Location: ../Views/Haircutter/loyalCostumers.php");
+  }
+
+  function FilterByName(){
+    $database = new MySqlObject();
+    $queryResult = $database->GetHaircutterIdByName($_SESSION['haircutterName']);
+    while ($row = $queryResult->fetch_assoc()) {
+      $indexOfHaircutter = $row["id"];
+    }
+    $queryResult = $database->GetAllReservations($indexOfHaircutter);
+    $reservations = array();
+    $index = 0;
+    while ($row = $queryResult->fetch_assoc()) {
+       $reservations[$index++] = $row;
+      }
+      $_SESSION['reservations'] = $reservations;
+      $index = 0;
+      foreach($reservations as $reservation){
+        if($reservation["clientNameAndSurname"] != $_POST['clientName']){
+          unset($reservations[$index]);
+        }
+        $index++;
+      }
+   $_SESSION['reservations'] = $reservations;
+      header("Location: ../Views/Haircutter/loyalCostumers.php");
+  }
+
+  function removeFilter(){
+    $database = new MySqlObject();
+    $queryResult = $database->GetHaircutterIdByName($_SESSION['haircutterName']);
+    while ($row = $queryResult->fetch_assoc()) {
+      $indexOfHaircutter = $row["id"];
+    }
 
   $queryResult = $database->GetAllReservations($indexOfHaircutter);
     $reservations = array();
@@ -193,7 +243,6 @@ class haircutterController{
       }
 
       $_SESSION['reservations'] = $reservations;
-   //   var_dump($_SESSION['reservations']);
       header("Location: ../Views/Haircutter/loyalCostumers.php");
   }
 }
