@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <html>
 
 <head>
@@ -9,6 +12,11 @@
 </head>
 
 <body>
+  <?php 
+if(isset($_SESSION['message'])){
+  echo $_SESSION['message'];
+}?>
+
   <a class="button" href="../Haircutter/customerSearch.php">Nuolaidu paieška</a><br>
   <a class="button" href="../Haircutter/loyalCostumers.php">Klientu sarašas</a><br>
   <a class="button" href="../Haircutter/reservation.php">Laiko klientams rezervacija</a><br>

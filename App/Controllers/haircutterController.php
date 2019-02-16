@@ -13,7 +13,13 @@ class haircutterController{
       $this->loadHairCutterMeniu();
     }else if(isset($_POST['findInfoAboutOneCustomer'])){
       $this->getInfoAboutCustomers();
-    }
+    }else if(isset($_POST['firstPartOfReservation'])){
+      $this->firstPartOfReservation();
+    }else if(isset($_POST['secondPartOfReservation'])){
+      $this->secondPartOfReservation();
+    }else if(isset($_POST['thirdPartOfReservation'])){
+      $this->thirdPartOfReservation();
+        }
   }
 
   function foundCostumersInfo(){
@@ -83,6 +89,88 @@ class haircutterController{
     header("Location: ../Views/Haircutter/cancel.php?message=".$message);
 
   }
+
+  function firstPartOfReservation()
+  {
+    var_dump($_POST);
+    var_dump($_SESSION);
+    $dates = array();
+		 for($index = 0; $index < 7;$index++){
+			 $dates[$index] = date("Y-m-d", strtotime("+".$index." day"));
+		 }
+     $_SESSION['dates'] = $dates;
+     $_SESSION['name'] = "". $_POST['name'] . " ".$_POST['surname'];
+		 header("Location: ../Views/Haircutter/reservation2.php");
+  }  
+
+  function secondPartOfReservation(){
+    $database = new MySqlObject();
+    $queryResult = $database->GetHaircutterIdByName($_POST['haircutterName']);
+     while ($row = $queryResult->fetch_assoc()) {
+      $haircutterId = $row;
+     }
+    $startTime = "10:00";
+    $times = array();
+    $hours = 10;
+    $minutes = 0;
+    $index = 0;
+    while($startTime != date("19:45")){
+    
+      $queryResult = $database->CheckIfTimeIsFree($_POST['daySelect'],$startTime,$haircutterId["id"]);
+      
+      $currentResult = '';
+      while ($row = $queryResult->fetch_assoc()) {
+        $currentResult = $row["COUNT(ID)"];
+       }
+      if($currentResult == 0){
+        $times[$index++]= $startTime;
+      }
+      if($minutes + 15 == 60){
+        $hours += 1;
+        $minutes -= 45;
+        
+      }else{
+        $minutes += 15;
+      }
+      $startTime = "".(string)$hours.":".(string)$minutes."";
+      if(strlen($startTime) == 4){
+        $startTime = $startTime."0";
+      }
+      
+    }
+    $_SESSION['times'] = $times;
+    $_SESSION['dates'] = NULL;
+    $_SESSION['selectedDay'] = $_POST['daySelect'];
+    var_dump($_SESSION);
+    header("Location: ../Views/Haircutter/reservation3.php");
   
+  }
+
+  function thirdPartOfReservation(){
+    $database = new MySqlObject();
+	$test = $database->GetHaircutterIdByName($_POST['haircutterName']);
+	while ($row = $test->fetch_assoc()) {
+		$haircutterId = $row;
+	 }
+	$database->insertNewReservation($_POST['clientName'], $_POST['day'], $_POST['timeSelect'], $haircutterId["id"]);
+	
+	$test = $database->CheckIfUserExsitsInVisitsTable($_POST['clientName']);
+	while ($row = $test->fetch_assoc()) {
+		$countVisitsOfSpeciefiedUser = $row['COUNT(id)'];
+	 }
+	if($countVisitsOfSpeciefiedUser == 0){
+		$database->CreateNewUserVisitsCountTable($_POST['clientName']);
+	}else {
+		$database->UpdateUserVisitsTable($_POST['clientName']);
+	}
+	
+	
+	$queryResult = $database->checkUserRegistrationInfo($_POST['clientName']);
+	while ($row = $queryResult->fetch_assoc()) {
+		$_SESSION['clientReservationInformation'] = $row;
+    }
+    $_SESSION['message'] = "Registracija sekminga";
+	header("Location: ../Views/Haircutter/meniu.php");
+  }
 
 }

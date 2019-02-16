@@ -115,7 +115,7 @@ session_start();
     <div class="card-body">
 
       <form action="../../Controllers/clientController.php" method="POST">
-        <input class="form-group form-control" id="Id" value="<?php echo $_SESSION['name']?>" readonly>
+        <input class="form-control" id="Id" value="<?php echo $_SESSION['name']?>" readonly>
         <select class="custom-select" name="haircutterSelect">
           <?php for($index = 0; $index < count($_SESSION['haircutterList']); $index++) {?>
           <option value="<?php echo $_SESSION['haircutterList'][$index]['name'];?>">
