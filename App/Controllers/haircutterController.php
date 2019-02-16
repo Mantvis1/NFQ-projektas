@@ -2,6 +2,8 @@
 session_start();
 include '../database.php';
 include '../Models/visitsModel.php';
+include '../Models/reservationListModel.php';
+
 $controller = new haircutterController();
 
 class haircutterController{
@@ -19,7 +21,9 @@ class haircutterController{
       $this->secondPartOfReservation();
     }else if(isset($_POST['thirdPartOfReservation'])){
       $this->thirdPartOfReservation();
-        }
+    }else if(isset($_POST['filter'])){
+      $this->Filter();
+    }
   }
 
   function foundCostumersInfo(){
@@ -170,7 +174,26 @@ class haircutterController{
 		$_SESSION['clientReservationInformation'] = $row;
     }
     $_SESSION['message'] = "Registracija sekminga";
-	header("Location: ../Views/Haircutter/meniu.php");
+  header("Location: ../Views/Haircutter/meniu.php");
   }
 
+  function Filter(){
+    $database = new MySqlObject();
+    $queryResult = $database->GetHaircutterIdByName($_SESSION['haircutterName']);
+    while ($row = $queryResult->fetch_assoc()) {
+      $indexOfHaircutter = $row["id"];
+    }
+
+
+  $queryResult = $database->GetAllReservations($indexOfHaircutter);
+    $reservations = array();
+    $index = 0;
+    while ($row = $queryResult->fetch_assoc()) {
+       $reservations[$index++] = $row;
+      }
+
+      $_SESSION['reservations'] = $reservations;
+   //   var_dump($_SESSION['reservations']);
+      header("Location: ../Views/Haircutter/loyalCostumers.php");
+  }
 }

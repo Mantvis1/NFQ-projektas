@@ -15,6 +15,7 @@ session_start();
   <?php 
 if(isset($_SESSION['message'])){
   echo $_SESSION['message'];
+  $_SESSION['message'] = NULL;
 }?>
 
   <a class="button" href="../Haircutter/customerSearch.php">Nuolaidu paieška</a><br>

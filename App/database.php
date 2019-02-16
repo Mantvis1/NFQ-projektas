@@ -151,6 +151,17 @@ class MySqlObject
       $result = $conn->query($query);
       return $result;
     }  
+
+    function GetAllReservations($id){
+
+      $conn = new mysqli("localhost", "root", "","nfqprojectdatabase");
+      if ($conn->connect_error) {
+        die("connection failed: " . $conn->connect_error);
+      }
+      $query = "SELECT clientNameAndSurname,startDay,startTime FROM reservations Where haircutterId =".$id;
+      $result = $conn->query($query);
+      return $result;
+    }
 }
 
 ?>
