@@ -7,18 +7,26 @@ session_start();
 </head>
 
 <body>
+  <?php var_dump($_SESSION['dates']);?>
   <form action="../../Controllers/haircutterController.php" method="POST">
     <label>Paieska pagal data</label>
     <select name="daySelect">
-      <?php for($index = 0; $index < count($_SESSION['dates']); $index++) {
-      if($index == 0){?>
-      <option value="<?php echo $_SESSION['dates'][$index];?>">Siandien</option>
-      <?php} else if($index == 1){?>
-      <option value="<?php echo $_SESSION['dates'][$index];?>">Rytoj</option>
-      <?php }else { ?>
+      <?php for($index = 0; $index < count($_SESSION['dates']); $index++) 
+    {
+     if($index == 0){
+    ?>
+      <option value="<?php echo $_SESSION['dates'][$index];?>">Šiandien</option>
+      <?php }
+      else if($index > 1){?>
       <option value="<?php echo $_SESSION['dates'][$index];?>"><?php echo $_SESSION['dates'][$index];?></option>
-      <?php } 
-      } ?>
+
+      <?php }else {
+        ?>
+      <option value="<?php echo $_SESSION['dates'][$index];?>">Rytoj</option>
+      <?php
+      }
+    
+    } ?>
     </select>
     <button type="submit">Filtruoti</button>
     <input name="filterByDate" type="hidden" value="1" readonly>
