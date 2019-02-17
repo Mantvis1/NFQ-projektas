@@ -1,40 +1,43 @@
 <?php
 session_start();
 ?>
-<html>
+<!DOCTYPE html>
 
-<head>
-
-</head>
+<?php 
+  include '../../Style/style.php';
+?>
 
 <body>
-  Cia bus rezervacija
-  <br>
-  <form action="../../Controllers/haircutterController.php" method="POST">
-    <input name="clientName" value="<?php echo $_SESSION['name']?>" readonly>
-    <input name="haircutterName" value="<?php echo $_SESSION['haircutterName']?>" readonly>
-    <select name="daySelect">
-      <?php for($index = 0; $index < count($_SESSION['dates']); $index++) 
+  <div class="card bg-light mb-3 center">
+    <div class="card-header">
+      <h3>2 etapas:</h3>
+    </div>
+    <div class="card-body">
+      <form action="../../Controllers/haircutterController.php" method="POST">
+        <input name="clientName" value="<?php echo $_SESSION['name']?>" readonly>
+        <input name="haircutterName" value="<?php echo $_SESSION['haircutterName']?>" readonly>
+        <select class="custom-select" name="daySelect">
+          <?php for($index = 0; $index < count($_SESSION['dates']); $index++) 
     {
      if($index == 0){
     ?>
-      <option value="<?php echo $_SESSION['dates'][$index];?>">Šiandien</option>
-      <?php }
+          <option value="<?php echo $_SESSION['dates'][$index];?>">Šiandien</option>
+          <?php }
       else if($index > 1){?>
-      <option value="<?php echo $_SESSION['dates'][$index];?>"><?php echo $_SESSION['dates'][$index];?></option>
-
-      <?php }else {
+          <option value="<?php echo $_SESSION['dates'][$index];?>"><?php echo $_SESSION['dates'][$index];?></option>
+          <?php }else {
         ?>
-      <option value="<?php echo $_SESSION['dates'][$index];?>">Rytoj</option>
-      <?php
+          <option value="<?php echo $_SESSION['dates'][$index];?>">Rytoj</option>
+          <?php
       }
-    
     } ?>
-    </select>
-    <button type="submit">Pasirinkti laika</button>
-    <input name="secondPartOfReservation" type="hidden" value="1">
-  </form>
-  <a class="button" href="../Haircutter/meniu.php">Gryzti i meniu</a><br>
+        </select>
+        <button class="btn-primary btn-lg" type="submit">Pasirinkti laika</button>
+        <input name="secondPartOfReservation" type="hidden" value="1">
+    </div>
+    </form>
+    <a class="button" href="../Haircutter/meniu.php">Gryzti i meniu</a>
+  </div>
 </body>
 
 </html>

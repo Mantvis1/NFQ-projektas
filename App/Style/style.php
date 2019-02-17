@@ -102,7 +102,7 @@
 
   input {
     display: inline-block;
-    width: 100%;
+    width: 90%;
     height: calc(1.5em + 0.75rem + 2px);
     padding: 0.375rem 1.75rem 0.375rem 0.75rem;
     font-size: 0.9375rem;
@@ -112,7 +112,7 @@
 
   input[readonly] {
     display: inline-block;
-    width: 100%;
+    width: 90%;
     height: calc(1.5em + 0.75rem + 2px);
     padding: 0.375rem 1.75rem 0.375rem 0.75rem;
     font-size: 0.9375rem;

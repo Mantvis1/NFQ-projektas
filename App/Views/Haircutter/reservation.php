@@ -1,25 +1,28 @@
 <?php
 session_start();
 ?>
-<html>
+<!DOCTYPE html>
 
-<head>
-  <style>
-  </style>
-  <script>
-
-  </script>
-</head>
+<?php 
+  include '../../Style/style.php';
+?>
 
 <body>
-  <form action="../../Controllers/haircutterController.php" method="POST">
-    <label>Kliento vardas</label>
-    <input name="name">
-    <label>Kliento pavarde</label>
-    <input name="surname">
-    <button class="btn-primary btn-lg" type="submit">Pasirinkti klienta</button>
-    <input name="firstPartOfReservation" type="hidden" value="1">
-    <a class="button" href="../Haircutter/meniu.php">Gryzti i meniu</a><br>
+  <div class="card bg-light mb-3 center">
+    <div class="card-header">
+      <h3>1 etapas:</h3>
+    </div>
+    <div class="card-body">
+      <form action="../../Controllers/haircutterController.php" method="POST">
+        <label>Kliento vardas</label>
+        <input name="name">
+        <label>Kliento pavarde</label>
+        <input name="surname">
+        <button class="btn-primary btn-lg" type="submit">Pasirinkti klienta</button>
+        <input name="firstPartOfReservation" type="hidden" value="1">
+    </div>
+    <a class="button" href="../Haircutter/meniu.php">Gryzti i meniu</a>
+  </div>
 </body>
 
 </html>

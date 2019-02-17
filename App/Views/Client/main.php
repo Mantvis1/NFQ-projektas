@@ -1,4 +1,4 @@
-<html>
+<!DOCTYPE html>
 <?php 
   include '../../Style/style.php';
 ?>
@@ -19,6 +19,7 @@
         <input type="hidden" name="postClientName" value="1" readonly>
       </form>
     </div>
+  </div>
 </body>
 
 </html>

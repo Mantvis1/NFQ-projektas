@@ -1,7 +1,7 @@
 <?php
 session_start();
 ?>
-<html>
+<!DOCTYPE html>
 <?php 
   include '../../Style/style.php';
 ?>

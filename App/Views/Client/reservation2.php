@@ -1,7 +1,7 @@
 <?php
 session_start();
 ?>
-<html>
+<!DOCTYPE html>
 
 <?php 
   include '../../Style/style.php';
@@ -37,6 +37,7 @@ session_start();
       </form>
     </div>
     <a href="../Client/main.php">Pradeti is pradziu</a>
+  </div>
 
 </body>
 

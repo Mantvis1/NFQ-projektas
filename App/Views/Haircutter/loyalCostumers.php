@@ -1,16 +1,16 @@
 <?php 
 session_start();
 ?>
-<html>
-
-<head>
-</head>
+<!DOCTYPE html>
+<?php 
+  include '../../Style/style.php';
+?>
 
 <body>
   <?php var_dump($_SESSION['dates']);?>
   <form action="../../Controllers/haircutterController.php" method="POST">
     <label>Paieska pagal data</label>
-    <select name="daySelect">
+    <select class="custom-select" name="daySelect">
       <?php for($index = 0; $index < count($_SESSION['dates']); $index++) 
     {
      if($index == 0){
@@ -28,17 +28,16 @@ session_start();
     
     } ?>
     </select>
-    <button type="submit">Filtruoti</button>
+    <button class="btn-primary btn-lg" type="submit">Filtruoti</button>
     <input name="filterByDate" type="hidden" value="1" readonly>
   </form>
   <form action="../../Controllers/haircutterController.php" method="POST">
     <label>Paieska pagal kliento varda</label>
     <input name="clientName">
-    <button type="submit">Atlikti paieska</button>
+    <button class="btn-primary btn-lg" type="submit">Atlikti paieska</button>
     <input name="filterByName" type="hidden" value="1" readonly>
   </form>
   <form action="../../Controllers/haircutterController.php" method="POST">
-    <button type="submit">Naikinti filtra</button>
     <input name="removeFilter" type="hidden" value="1" readonly>
   </form>
   <table>
