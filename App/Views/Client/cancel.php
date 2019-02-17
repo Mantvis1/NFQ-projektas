@@ -4,11 +4,6 @@
 </head>
 
 <body>
-  <?php
-//if(isset($_GET)){
-//  echo $_GET["message"];
-//}
-?>
   <form action="../../Controllers/clientController.php" method="POST">
     <div>Jūs jau turite rezervaciją</div>
     <label>Kirpimo data:<?php echo $_SESSION['clientReservationInformation']['startDay'];?></label><br>

@@ -104,13 +104,24 @@ session_start();
     align-items: center;
     margin-bottom: 0
   }
+
+  input[readonly] {
+    display: inline-block;
+    width: 100%;
+    height: calc(1.5em + 0.75rem + 2px);
+    padding: 0.375rem 1.75rem 0.375rem 0.75rem;
+    font-size: 0.9375rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #B6A7A7;
+  }
   </style>
 </head>
 
 <body>
   <div class="card bg-light mb-3 center">
     <div class="card-header">
-      <h3>Pasirinkite norimą kirpėją</h3>
+      <h3>1 etapas: Pasirinkite norimą kirpėją</h3>
     </div>
     <div class="card-body">
 
