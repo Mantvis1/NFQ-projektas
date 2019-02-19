@@ -24,6 +24,12 @@ Tada matome meniu iš 4 punktų.
 
 Dabar aptarsiu kiekvieną dalį atskirai:
 1) Kirpejai pakanka įrašyti kliento vardą ir pavardę, tada apačioje pasirodo reikalinga informacija.
-2)
-3)
+2)Pasirinkus šį punktą galima
+	Matyti klientus išrykiuotus pagal apsilankymų kiekį(visi klientai automatiškai surikiuoti)
+	Filtruoti pagal vardą, irašyti kliento vardą ir pavardę. Sistema pateiks sąrašą surikiuotą pagal apsilankymų kiekį.
+	Filtruoti pagal datą.Pasirenkama data, ir lentelėje pateikiami klientai užsiregistavę tą dieną.	
+3)Rezervacija trunka 3 etapais:
+	I) Įvedama kliento vardas ir pavardę.
+	II) Pasirenkama data.
+	III) Iš galimų laikų pasirenkate tinkamiausią.
 4) Pakanaka įvesti kliento vardą ir pavardę, ir jo vizitas bus atšauktas.

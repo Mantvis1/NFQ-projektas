@@ -22,11 +22,11 @@ session_start();
           <option value="<?php echo $_SESSION['times'][$index];?>"><?php echo $_SESSION['times'][$index];?></option>
           <?php } ?>
         </select>
-        <button class="btn-primary btn-lg" type="submit">Pasirinkti laika</button>
+        <button class="btn-primary btn-lg" type="submit">Pasirinkti laiką</button>
         <input name="thirdPartOfReservation" type="hidden" value="1">
       </form>
     </div>
-    <a class="button" href="../Haircutter/meniu.php">Gryzti i meniu</a>
+    <a class="button" href="../Haircutter/meniu.php">Grįžti į meniu</a>
   </div>
 </body>
 

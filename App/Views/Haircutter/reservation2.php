@@ -33,11 +33,11 @@ session_start();
       }
     } ?>
         </select>
-        <button class="btn-primary btn-lg" type="submit">Pasirinkti laika</button>
+        <button class="btn-primary btn-lg" type="submit">Pasirinkti datą</button>
         <input name="secondPartOfReservation" type="hidden" value="1">
     </div>
     </form>
-    <a class="button" href="../Haircutter/meniu.php">Gryzti i meniu</a>
+    <a class="button" href="../Haircutter/meniu.php">Grįžti į meniu</a>
   </div>
 </body>
 

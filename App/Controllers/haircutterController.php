@@ -88,10 +88,10 @@ class haircutterController{
       $userRegistrationCount = $row["Count(id)"];
     }
     if($userRegistrationCount == 0){
-      $message = "registraciju nera";
+      $message = "Regitracijų nėra";
     }else {
       $queryResult = $database->cancelRegistration($_POST['customerName']);
-      $message = "registracija sekmingai atsaukta";
+      $message = "Registracija sėkmingai atšaukta";
     }
     
     header("Location: ../Views/Haircutter/cancel.php?message=".$message);
@@ -169,7 +169,7 @@ class haircutterController{
 	while ($row = $queryResult->fetch_assoc()) {
 		$_SESSION['clientReservationInformation'] = $row;
     }
-    $_SESSION['message'] = "Registracija sekminga";
+    $_SESSION['message'] = "Registracija sėkminga";
   header("Location: ../Views/Haircutter/meniu.php");
   }
 

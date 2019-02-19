@@ -18,10 +18,10 @@ session_start();
         <input name="name">
         <label>Kliento pavarde</label>
         <input name="surname">
-        <button class="btn-primary btn-lg" type="submit">Pasirinkti klienta</button>
+        <button class="btn-primary btn-lg" type="submit">Pasirinkti klientą</button>
         <input name="firstPartOfReservation" type="hidden" value="1">
     </div>
-    <a class="button" href="../Haircutter/meniu.php">Gryzti i meniu</a>
+    <a class="button" href="../Haircutter/meniu.php">Grįžti į meniu</a>
   </div>
 </body>
 
