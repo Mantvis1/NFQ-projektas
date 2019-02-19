@@ -23,13 +23,13 @@ session_start();
           value="<?php echo $_SESSION['clientReservationInformation']['startDay'];?>"><br>
         <label>Kirpimo laikas:</label><input readonly
           value="<?php echo $_SESSION['clientReservationInformation']['startTime'];?>"><br>
-        <label>Kirpeja:</label><input readonly
+        <label>Kirpėja:</label><input readonly
           value="<?php echo $_SESSION['clientReservationInformation']['name'];?>"><br>
-        <button class="btn-primary btn-lg" type="submit">Atsaukti</button>
+        <button class="btn-primary btn-lg" type="submit">Atšaukti</button>
         <input name="cancel" type="hidden" value="1">
       </form>
     </div>
-    <a href="main.php">Gryzti i pradzia</a>
+    <a href="main.php">Gryžti į pradžią</a>
   </div>
 </body>
 

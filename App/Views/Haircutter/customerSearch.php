@@ -10,13 +10,13 @@ session_start();
 <body>
   <div class="card bg-light mb-3 center">
     <div class="card-header">
-      <h3>Nuolaidų paiška</h3>
+      <h3>Nuolaidų paieška</h3>
     </div>
     <div class="card-body">
       <form method="POST" action="../../Controllers/haircutterController.php">
         <label>Kliento vardas ir pavardė:</label>
         <input name="name">
-        <button class="btn-primary btn-lg" type="submit">Ieskoti</button>
+        <button class="btn-primary btn-lg" type="submit">Ieškoti</button>
         <input type="hidden" name="userSearch" value="1" readonly>
       </form>
       <?php 
@@ -26,7 +26,7 @@ session_start();
     }
   ?>
     </div>
-    <a class="button" href="../Haircutter/meniu.php">Gryzti i meniu</a>
+    <a class="button" href="../Haircutter/meniu.php">Grįžti į meniu</a>
   </div>
 </body>
 

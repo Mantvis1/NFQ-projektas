@@ -23,7 +23,7 @@ session_start();
           </option>
           <?php } ?>
         </select>
-        <button class="btn-primary btn-lg" type="submit">Pasirinkti kirpeją</button>
+        <button class="btn-primary btn-lg" type="submit">Pasirinkti kirpėją</button>
         <input name="firstPartOfReservation" type="hidden" value="1">
       </form>
     </div>

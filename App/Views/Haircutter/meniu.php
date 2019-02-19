@@ -20,10 +20,10 @@ session_start();
         unset($_SESSION['message']);
         echo "<br>";
       }?>
-      <a class="button" href="../Haircutter/customerSearch.php">Nuolaidu paieška</a><br>
-      <a class="button" href="../Haircutter/loyalCostumers.php">Klientu sarašas</a><br>
+      <a class="button" href="../Haircutter/customerSearch.php">Nuolaidų paieška</a><br>
+      <a class="button" href="../Haircutter/loyalCostumers.php">Klientų sąrašas</a><br>
       <a class="button" href="../Haircutter/reservation.php">Laiko klientams rezervacija</a><br>
-      <a class="button" href="../Haircutter/cancel.php">Laiko klientams atsaukimas</a><br>
+      <a class="button" href="../Haircutter/cancel.php">Laiko klientams atšaukimas</a><br>
     </div>
   </div>
 </body>

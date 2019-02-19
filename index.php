@@ -10,7 +10,7 @@
   </div>
   <div class="card-body">
     <a class="button" href="App/Views/Client/main.php">Klientas</a><br>
-    <a class="button" href="App/Views/Haircutter/main.php">Kirpeja</a>
+    <a class="button" href="App/Views/Haircutter/main.php">Kirpėja</a>
   </div>
 
   </html>

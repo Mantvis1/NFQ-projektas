@@ -56,7 +56,7 @@ class haircutterController{
       $message = "Vartotojas nera uzsiregistraves. Jis taip pat negaus nuolaidos, kai uzsiregistruos ir atvyks.";
     }
  }else {
-    $message = "Vartotojas dar nei karto neapsilanke";
+    $message = "Vartotojas dar nei karto neapsilankė";
   }
   $_SESSION['message'] = $message;
   header("Location: ../Views/Haircutter/customerSearch.php");

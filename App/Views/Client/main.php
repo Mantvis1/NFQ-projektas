@@ -15,7 +15,7 @@
         <input type="text" required name="name"><br>
         <label>Pavardė</label><br>
         <input type="text" required name="surname"><br>
-        <button class="btn btn-primary btn-lg" type="submit">Ieskoti</button>
+        <button class="btn btn-primary btn-lg" type="submit">Ieškoti</button>
         <input type="hidden" name="postClientName" value="1" readonly>
       </form>
     </div>
