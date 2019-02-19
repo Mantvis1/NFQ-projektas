@@ -9,7 +9,7 @@ class MySqlObject{
   
   function MySqlObject(){
     $this->conn = new mysqli("localhost", "root", "","nfqprojectdatabase");
-    if ($conn->connect_error){
+    if ($this->conn->connect_error){
     die("connection failed: " . $conn->connect_error);
     }
     return $this->conn;
@@ -123,6 +123,15 @@ class MySqlObject{
       $query = "SELECT clientNameAndSurname,startDay,startTime FROM reservations Where haircutterId =".$id;
       $result = $conn->query($query);
       return $result;
+    }
+
+    function GetCostumersVisitCount($nameAndSurname){
+      $conn = $this->MySqlObject();
+      $query = "SELECT visitsCount FROM visits WHERE clientNameAndSurname = '".$nameAndSurname."'";
+      $result = $conn->query($query);
+      while($row = $result->fetch_assoc()){
+          return $row["visitsCount"];
+      }
     }
 }
 

@@ -63,11 +63,7 @@ class haircutterController{
 
   function loadHairCutterMeniu(){
     $database = new MySqlObject();
-    $dates = array();
-    for($index = 0; $index < 7;$index++){
-      $dates[$index] = date("Y-m-d", strtotime("+".$index." day"));
-    }
-    $_SESSION['dates'] = $dates;
+    $this->SetDates();
     $nameAndSurname = $_POST['name']." ".$_POST['surname'];
     $queryResult = $database->IfHaircutterExists($nameAndSurname);
     while($row = $queryResult->fetch_assoc()){
@@ -103,11 +99,7 @@ class haircutterController{
 
   function firstPartOfReservation()
   {
-    $dates = array();
-		 for($index = 0; $index < 7;$index++){
-			 $dates[$index] = date("Y-m-d", strtotime("+".$index." day"));
-		 }
-     $_SESSION['dates'] = $dates;
+    $this->SetDates();
      $_SESSION['name'] = "". $_POST['name'] . " ".$_POST['surname'];
 		 header("Location: ../Views/Haircutter/reservation2.php");
   }  
@@ -201,6 +193,7 @@ class haircutterController{
         $index++;
       }
       $_SESSION['reservations'] = $reservations;
+      $this->SortByVisitsTime();
       header("Location: ../Views/Haircutter/loyalCostumers.php");
   }
 
@@ -224,7 +217,8 @@ class haircutterController{
         }
         $index++;
       }
-   $_SESSION['reservations'] = $reservations;
+     $_SESSION['reservations'] = $reservations;
+     $this->SortByVisitsTime();
       header("Location: ../Views/Haircutter/loyalCostumers.php");
   }
 
@@ -243,6 +237,48 @@ class haircutterController{
       }
 
       $_SESSION['reservations'] = $reservations;
+      $this->SortByVisitsTime();
       header("Location: ../Views/Haircutter/loyalCostumers.php");
+  }
+
+  function SetDates(){
+    $dates = array();
+    for($index = 0; $index < 7;$index++){
+      $dates[$index] = date("Y-m-d", strtotime("+".$index." day"));
+    }
+    $_SESSION['dates'] = $dates;
+    
+  }
+
+  function SortByVisitsTime(){
+    $database = new MySqlObject();
+    $costumerVisitsCount = array();
+    $index = 0;
+    foreach ($_SESSION['reservations'] as $value){
+      $queryResult = $database->GetCostumersVisitCount($value['clientNameAndSurname']);
+      $visits= new VisitsModel($value['clientNameAndSurname'], $queryResult);
+      $costumerVisitsCount[$index++] = $visits;
+    }
+    $test = $costumerVisitsCount[0];
+    var_dump($test->visitsCount);
+    $size = count($costumerVisitsCount)-1;
+    for ($i=0; $i<$size; $i++) {
+        for ($j=0; $j<$size-$i; $j++) {
+            $k = $j+1;
+            if ((int)$costumerVisitsCount[$k]->visitsCount > (int)$costumerVisitsCount[$j]->visitsCount) {
+                list($costumerVisitsCount[$j], $costumerVisitsCount[$k]) = array($costumerVisitsCount[$k], $costumerVisitsCount[$j]);
+            }
+        }
+    }
+    $newReservationArray = array_fill(0, count($costumerVisitsCount) - 1, '');
+    for($i = 0; $i < count($costumerVisitsCount) - 1;$i++){
+     for($j = 0; $j < count($costumerVisitsCount) - 1; $j++){
+       if($costumerVisitsCount[$i]->customerName == $_SESSION['reservations'][$j]['clientNameAndSurname']){
+         $newReservationArray[$i] = $_SESSION['reservations'][$j];
+       }
+     }
+    }
+    $_SESSION['reservations'] = $newReservationArray;
+    var_dump($_SESSION['reservations']);
   }
 }

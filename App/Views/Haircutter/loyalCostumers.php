@@ -7,7 +7,6 @@ session_start();
 ?>
 
 <body>
-  <?php var_dump($_SESSION['dates']);?>
   <form action="../../Controllers/haircutterController.php" method="POST">
     <label>Paieska pagal data</label>
     <select class="custom-select" name="daySelect">
@@ -38,6 +37,7 @@ session_start();
     <input name="filterByName" type="hidden" value="1" readonly>
   </form>
   <form action="../../Controllers/haircutterController.php" method="POST">
+    <button class="btn-primary btn-lg" type="submit">Valyti nustatymus</button>
     <input name="removeFilter" type="hidden" value="1" readonly>
   </form>
   <table>

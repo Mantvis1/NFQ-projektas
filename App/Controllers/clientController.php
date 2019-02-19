@@ -21,7 +21,6 @@ class ClientController {
 	
 	public function checkIfUserHaveRegistration(){
 		$database = new MySqlObject();
-		var_dump($database);
 		$reservation = new Reservation($_POST['name'],$_POST['surname']);
 		$nameAndSurname = "". $reservation->uName . " ".$reservation->uSurname;
 		$_SESSION['name'] = $nameAndSurname;
@@ -70,6 +69,8 @@ function SecondPartOfReservation(){
 	 while ($row = $queryResult->fetch_assoc()) {
 		$haircutterId = $row;
 	 }
+	 $_SESSION['haircutterName'] = $_POST['haircutterName'];
+	 $_SESSION['daySelect'] = $_POST['daySelect'];
 	$startTime = "10:00";
 	$times = array();
 	$hours = 10;
@@ -100,11 +101,10 @@ function SecondPartOfReservation(){
 		
 	}
 	$_SESSION['times'] = $times;
-	header("Location: ../Views/Client/reservation3.php?haircutter=".$_POST['haircutterName']."&day=".$_POST['daySelect']);
+	header("Location: ../Views/Client/reservation3.php");
 }
 
 function ThirdPartOfReservation(){
-//	var_dump($_POST);
 	$database = new MySqlObject();
 	$test = $database->GetHaircutterIdByName($_POST['haircutterName']);
 	while ($row = $test->fetch_assoc()) {
