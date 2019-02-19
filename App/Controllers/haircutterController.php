@@ -33,32 +33,33 @@ class haircutterController{
   function foundCostumersInfo(){
     $database = new MySqlObject();
     $costumerInfo = $database->findCostumersVisitsCountByName($_POST['name']);
+    $visits = 0;
     while ($row = $costumerInfo->fetch_assoc()) {
-      $visits = new VisitsModel($_POST['name'], $row['visitsCount']);
+      $visits = $row['visitsCount'];
     }
-    $costumerInfo = $database->checkIfUserWasRegistred($visits->uName);
+    $costumerInfo = $database->checkIfUserWasRegistred($_POST['name']);
     while ($row = $costumerInfo->fetch_assoc()) {
      $visitsCount = $row["Count(id)"];
     }
     $message = '';
-    if($visits->visitsCount > 0){
-    if($visitsCount == 1 && ($visits->visitsCount % 5) == 0){
+    if($visits  > 0){
+    if($visitsCount == 1 && ($visits % 5) == 0){
       $message = "Vartotojas yra uzsiregistraves. Jis gaus nuolaidą kai atvyks.";
     }
-    else if($visitsCount == 1 && (($visits->visitsCount % 5) != 0)){
+    else if($visitsCount == 1 && (($visits % 5) != 0)){
        $message ="Vartotojas yra uzsiregistraves, taciau negaus nuolaidos.";
     }
-    else if($visitsCount == 0 && (($visits->visitsCount+1) % 5) == 0){
+    else if($visitsCount == 0 && (($visits+1) % 5) == 0){
       $message = "Vartotojas nera uzsiregistraves. Jis gaus nuolaidą, kai uzsiregistruos ir atvyks.";
     }
-    else if($visitsCount == 0 && (($visits->visitsCount+1) % 5) != 0){
+    else if($visitsCount == 0 && (($visits+1) % 5) != 0){
       $message = "Vartotojas nera uzsiregistraves. Jis taip pat negaus nuolaidos, kai uzsiregistruos ir atvyks.";
     }
  }else {
     $message = "Vartotojas dar nei karto neapsilanke";
   }
   $_SESSION['message'] = $message;
-   header("Location: ../Views/Haircutter/customerSearch.php");
+  header("Location: ../Views/Haircutter/customerSearch.php");
   }
 
   function loadHairCutterMeniu(){
@@ -178,8 +179,8 @@ class haircutterController{
     while ($row = $queryResult->fetch_assoc()) {
       $indexOfHaircutter = $row["id"];
     }
-
-  $queryResult = $database->GetAllReservations($indexOfHaircutter);
+  $time = date("Y-m-d", strtotime("0 day"));
+  $queryResult = $database->GetAllReservations($indexOfHaircutter, $time);
     $reservations = array();
     $index = 0;
     while ($row = $queryResult->fetch_assoc()) {
@@ -203,7 +204,8 @@ class haircutterController{
     while ($row = $queryResult->fetch_assoc()) {
       $indexOfHaircutter = $row["id"];
     }
-    $queryResult = $database->GetAllReservations($indexOfHaircutter);
+    $time = date("Y-m-d", strtotime("0 day"));
+    $queryResult = $database->GetAllReservations($indexOfHaircutter, $time);
     $reservations = array();
     $index = 0;
     while ($row = $queryResult->fetch_assoc()) {
@@ -228,8 +230,8 @@ class haircutterController{
     while ($row = $queryResult->fetch_assoc()) {
       $indexOfHaircutter = $row["id"];
     }
-
-  $queryResult = $database->GetAllReservations($indexOfHaircutter);
+    $time = date("Y-m-d", strtotime("0 day"));
+    $queryResult = $database->GetAllReservations($indexOfHaircutter, $time);
     $reservations = array();
     $index = 0;
     while ($row = $queryResult->fetch_assoc()) {
@@ -259,8 +261,6 @@ class haircutterController{
       $visits= new VisitsModel($value['clientNameAndSurname'], $queryResult);
       $costumerVisitsCount[$index++] = $visits;
     }
-    $test = $costumerVisitsCount[0];
-    var_dump($test->visitsCount);
     $size = count($costumerVisitsCount)-1;
     for ($i=0; $i<$size; $i++) {
         for ($j=0; $j<$size-$i; $j++) {
@@ -270,6 +270,7 @@ class haircutterController{
             }
         }
     }
+    if(count($costumerVisitsCount) - 1 > 0){
     $newReservationArray = array_fill(0, count($costumerVisitsCount) - 1, '');
     for($i = 0; $i < count($costumerVisitsCount) - 1;$i++){
      for($j = 0; $j < count($costumerVisitsCount) - 1; $j++){
@@ -279,6 +280,6 @@ class haircutterController{
      }
     }
     $_SESSION['reservations'] = $newReservationArray;
-    var_dump($_SESSION['reservations']);
+  }
   }
 }

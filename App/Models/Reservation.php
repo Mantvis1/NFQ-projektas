@@ -5,10 +5,9 @@ class Reservation
 		public $uName = "";
 		public $uSurname = "";
     
-    public function __construct($name, $surname)
+    public function __construct($uName, $uName)
     {
-				$this->uName = $name;
-				$this->uSurname = $surname;
+				$this->uName = $uName;
+				$this->uSurname = $uName;
 		}
 }
-

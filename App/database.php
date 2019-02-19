@@ -51,6 +51,7 @@ class MySqlObject{
     $query = "SELECT visitsCount FROM visits WHERE clientNameAndSurname= "."'$nameAndSurname' ";
     $result = $conn->query($query);
     return $result;
+  
   }
 
   public function GetAllHaircutters(){
@@ -118,9 +119,9 @@ class MySqlObject{
       return $result;
     }  
 
-    function GetAllReservations($id){
+    function GetAllReservations($id, $time){
       $conn = $this->MySqlObject();
-      $query = "SELECT clientNameAndSurname,startDay,startTime FROM reservations Where haircutterId =".$id;
+      $query = "SELECT clientNameAndSurname,startDay,startTime FROM reservations Where haircutterId =".$id." and startDay >= '".$time."'";
       $result = $conn->query($query);
       return $result;
     }
