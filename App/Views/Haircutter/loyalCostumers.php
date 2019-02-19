@@ -13,7 +13,7 @@ session_start();
     </div>
     <div class="card-body">
       <form action="../../Controllers/haircutterController.php" method="POST">
-        <label>Paieska pagal data</label>
+        <label>Paieška pagal datą</label>
         <select class="custom-select" name="daySelect">
           <?php for($index = 0; $index < count($_SESSION['dates']); $index++) 
     {
@@ -36,9 +36,9 @@ session_start();
         <input name="filterByDate" type="hidden" value="1" readonly>
       </form>
       <form action="../../Controllers/haircutterController.php" method="POST">
-        <label>Paieska pagal kliento varda</label>
-        <input name="clientName">
-        <button class="btn-primary btn-lg" type="submit">Atlikti paieska</button>
+        <label>Paieška pagal kliento vardą</label>
+        <input name="clientName" required>
+        <button class="btn-primary btn-lg" type="submit">Atlikti paiešką</button>
         <input name="filterByName" type="hidden" value="1" readonly>
       </form>
       <form action="../../Controllers/haircutterController.php" method="POST">
@@ -50,7 +50,7 @@ session_start();
   <table>
     <thead>
       <tr>
-        <td>Vardas Pavarde</td>
+        <td>Vardas Pavardė</td>
         <td>Apsilankymo data</td>
         <td>Apsilankymo laikas</td>
       </tr>
@@ -73,7 +73,7 @@ session_start();
     </tbody>
   </table>
   <?php echo "<div>Spauskite valyti nustatymus</div>";}?>
-  <a class="button" href="../Haircutter/meniu.php">Gryzti i meniu</a><br>
+  <a class="button" href="../Haircutter/meniu.php">Grįžti į meniu</a>
 </body>
 
 </html>
