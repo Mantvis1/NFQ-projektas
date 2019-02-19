@@ -9,8 +9,8 @@
     </h3>
   </div>
   <div class="card-body">
-    <a class="button" href="App/Views/Client/main.php">Klientas</a><br>
-    <a class="button" href="App/Views/Haircutter/main.php">Kirpėja</a>
+    <a class="button" href="App/Views/Client/main.php">Klientas/Klientė</a><br>
+    <a class="button" href="App/Views/Haircutter/main.php">Kirpėjas/Kirpėja</a>
   </div>
 
   </html>
