@@ -21,6 +21,7 @@ class ClientController {
 	
 	public function checkIfUserHaveRegistration(){
 		$database = new MySqlObject();
+		var_dump($database);
 		$reservation = new Reservation($_POST['name'],$_POST['surname']);
 		$nameAndSurname = "". $reservation->uName . " ".$reservation->uSurname;
 		$_SESSION['name'] = $nameAndSurname;

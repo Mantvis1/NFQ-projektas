@@ -1,27 +1,29 @@
 <?php
 //include 'config.php';
 
-class MySqlObject
-{
+class MySqlObject{ 
+  var $conn = "";
   function __construct(){
-    
+
+  }
+  
+  function MySqlObject(){
+    $this->conn = new mysqli("localhost", "root", "","nfqprojectdatabase");
+    if ($conn->connect_error){
+    die("connection failed: " . $conn->connect_error);
+    }
+    return $this->conn;
   }
 
   public function checkIfUserWasRegistred($nameAndSurname){
-    $conn = new mysqli("localhost", "root", "","nfqprojectdatabase");
-	  if ($conn->connect_error) {
-		  die("connection failed: " . $conn->connect_error);
-    }
+    $conn = $this->MySqlObject();
     $query = "SELECT Count(id) from reservations where clientNameAndSurname = "."'$nameAndSurname'";
-    $result = $conn->query($query);
+    $result = $this->conn->query($query);
     return $result;
   }
 
   public function checkUserRegistrationInfo($nameAndSurname){
-    $conn = new mysqli("localhost", "root", "","nfqprojectdatabase");
-	  if ($conn->connect_error) {
-		  die("connection failed: " . $conn->connect_error);
-    }
+    $conn = $this->MySqlObject();
     $query = "SELECT startTime,startDay, haircutter.name
     FROM reservations
     INNER JOIN haircutter
@@ -32,69 +34,48 @@ class MySqlObject
   }
 
   public function cancelRegistration($nameAndSurname){
-    $conn = new mysqli("localhost", "root", "","nfqprojectdatabase");
-	  if ($conn->connect_error) {
-		  die("connection failed: " . $conn->connect_error);
-    }
+    $conn = $this->MySqlObject();
     $query = "DELETE FROM reservations WHERE clientNameAndSurname = "."'$nameAndSurname' ";
     return $conn->query($query);
   }
 
   public function getLoyalCustomers(){
-    $conn = new mysqli("localhost", "root", "","nfqprojectdatabase");
-	  if ($conn->connect_error) {
-		  die("connection failed: " . $conn->connect_error);
-    }
+    $conn = $this->MySqlObject();
     $query = "SELECT clientNameAndSurname,visitsCount FROM visits ORDER by visitsCount ASC";
     $result = $conn->query($query);
     return $result;
   }
 
   public function findCostumersVisitsCountByName($nameAndSurname){
-    $conn = new mysqli("localhost", "root", "","nfqprojectdatabase");
-	  if ($conn->connect_error) {
-		  die("connection failed: " . $conn->connect_error);
-    }
+    $conn = $this->MySqlObject();
     $query = "SELECT visitsCount FROM visits WHERE clientNameAndSurname= "."'$nameAndSurname' ";
     $result = $conn->query($query);
     return $result;
   }
 
   public function GetAllHaircutters(){
-    $conn = new mysqli("localhost", "root", "","nfqprojectdatabase");
-	  if ($conn->connect_error) {
-		  die("connection failed: " . $conn->connect_error);
-    }
+    $conn = $this->MySqlObject();
     $query = "SELECT * FROM haircutter";
     $result = $conn->query($query);
     return $result;
   }
 
   public function CheckIfTimeIsFree($startDay, $startTime,$haircutterId){
-    $conn = new mysqli("localhost", "root", "","nfqprojectdatabase");
-	  if ($conn->connect_error) {
-		  die("connection failed: " . $conn->connect_error);
-    }
+    $conn = $this->MySqlObject();
     $query ="SELECT COUNT(ID) FROM reservations WHERE startDay = '".$startDay."' and startTime = '".$startTime."' and haircutterId=".$haircutterId;
     $result = $conn->query($query);
     return $result;
   }
 
   public function GetHaircutterIdByName($name){
-    $conn = new mysqli("localhost", "root", "","nfqprojectdatabase");
-	  if ($conn->connect_error) {
-		  die("connection failed: " . $conn->connect_error);
-    }
+    $conn = $this->MySqlObject();
     $query = "SELECT id FROM haircutter where name='".$name."'";
     $result = $conn->query($query);
     return $result;
   }
 
   function insertNewReservation($nameAndSurname, $startDay, $startTime,$haircutterId){
-    $conn = new mysqli("localhost", "root", "","nfqprojectdatabase");
-	  if ($conn->connect_error) {
-		  die("connection failed: " . $conn->connect_error);
-    }
+    $conn = $this->MySqlObject();
     $query = "INSERT INTO reservations VALUES (NULL, '".$nameAndSurname."', '".$startDay."','".$startTime."',".$haircutterId.")";
     $result = $conn->query($query);
     if($result == true){
@@ -105,59 +86,40 @@ class MySqlObject
   }
 
     function CreateNewUserVisitsCountTable($nameAndSurname){
-      $conn = new mysqli("localhost", "root", "","nfqprojectdatabase");
-	  if ($conn->connect_error) {
-		  die("connection failed: " . $conn->connect_error);
-    }
+      $conn = $this->MySqlObject();
       $query= "INSERT INTO visits VALUES (NULL,'".$nameAndSurname."',1)";
       $result = $conn->query($query);
     }
 
     function CheckIfUserExsitsInVisitsTable($nameAndSurname){
-      $conn = new mysqli("localhost", "root", "","nfqprojectdatabase");
-      if ($conn->connect_error) {
-        die("connection failed: " . $conn->connect_error);
-      }
+      $conn = $this->MySqlObject();
         $query= "SELECT COUNT(id) FROM visits WHERE clientNameAndSurname = '".$nameAndSurname."'";
         $result = $conn->query($query);
         return $result;
     }
 
     function UpdateUserVisitsTable($nameAndSurname){
-      $conn = new mysqli("localhost", "root", "","nfqprojectdatabase");
-      if ($conn->connect_error) {
-        die("connection failed: " . $conn->connect_error);
-      }
+      $conn = $this->MySqlObject();
       $query = "UPDATE visits SET visitsCount=visitsCount+1 WHERE clientNameAndSurname = '".$nameAndSurname."';";
       $result = $conn->query($query);
     }
 
     function UpdateUserVisitsTableAfterCancel($nameAndSurname){
-      $conn = new mysqli("localhost", "root", "","nfqprojectdatabase");
-      if ($conn->connect_error) {
-        die("connection failed: " . $conn->connect_error);
-      }
+      $conn = $this->MySqlObject();
       $query = "UPDATE visits SET visitsCount=visitsCount-1 WHERE clientNameAndSurname = '".$nameAndSurname."';";
       $result = $conn->query($query);
     }
 
     function IfHaircutterExists($nameAndSurname)
     {
-      $conn = new mysqli("localhost", "root", "","nfqprojectdatabase");
-      if ($conn->connect_error) {
-        die("connection failed: " . $conn->connect_error);
-      }
+      $conn = $this->MySqlObject();
       $query= "SELECT Count(id) FROM haircutter where name = '".$nameAndSurname."'";
       $result = $conn->query($query);
       return $result;
     }  
 
     function GetAllReservations($id){
-
-      $conn = new mysqli("localhost", "root", "","nfqprojectdatabase");
-      if ($conn->connect_error) {
-        die("connection failed: " . $conn->connect_error);
-      }
+      $conn = $this->MySqlObject();
       $query = "SELECT clientNameAndSurname,startDay,startTime FROM reservations Where haircutterId =".$id;
       $result = $conn->query($query);
       return $result;
